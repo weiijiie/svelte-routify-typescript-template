@@ -1,0 +1,12 @@
+# Dependency directories
+/node_modules/
+
+# Build directories
+/public/build/
+
+# Optional npm cache directory
+.npm
+
+# IDE - Settings
+.vscode/*
+.prettierrc
