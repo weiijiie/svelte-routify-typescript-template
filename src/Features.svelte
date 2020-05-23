@@ -9,7 +9,7 @@
         }
     }
 
-    setInterval(shift, 1800);
+    setInterval(shift, 2000);
 </script>
 
 <style>

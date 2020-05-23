@@ -3,7 +3,7 @@ import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import babel from "@rollup/plugin-babel";
 import livereload from "rollup-plugin-livereload";
-import autoPreprocess from "svelte-preprocess";
+import sveltePreprocess from "svelte-preprocess";
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -13,7 +13,7 @@ export default (async () => ({
         sourcemap: true,
         format: "esm",
         name: "app",
-        dir: "public/build",
+        dir: "public/build"
     },
     plugins: [
         svelte({
@@ -24,10 +24,10 @@ export default (async () => ({
             css: (css) => {
                 css.write("public/build/bundle.css");
             },
-            preprocess: autoPreprocess({
+            preprocess: sveltePreprocess({
                 // Can use <... lang="ts"> in place of <... lang="typescript">
-                aliases: [["ts", "typescript"]],
-            }),
+                aliases: [["ts", "typescript"]]
+            })
         }),
 
         // If you have external dependencies installed from
@@ -37,13 +37,13 @@ export default (async () => ({
         // https://github.com/rollup/plugins/tree/master/packages/commonjs
         resolve({
             browser: true,
-            dedupe: ["svelte"],
+            dedupe: ["svelte"]
         }),
         commonjs(),
 
         babel({
             babelHelpers: "bundled",
-            exclude: "node_modules/**",
+            exclude: "node_modules/**"
         }),
 
         // In dev mode, call `npm run start` once
@@ -56,11 +56,11 @@ export default (async () => ({
 
         // If we're building for production (npm run build
         // instead of npm run dev), minify
-        production && (await import("rollup-plugin-terser")).terser(),
+        production && (await import("rollup-plugin-terser")).terser()
     ],
     watch: {
-        clearScreen: false,
-    },
+        clearScreen: false
+    }
 }))();
 
 function serve() {
@@ -76,10 +76,10 @@ function serve() {
                     ["run", "start", "--", "--dev"],
                     {
                         stdio: ["ignore", "inherit", "inherit"],
-                        shell: true,
+                        shell: true
                     }
                 );
             }
-        },
+        }
     };
 }
