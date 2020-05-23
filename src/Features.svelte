@@ -4,8 +4,9 @@
     export let features: string[];
 
     function shift() {
-        let feature = features.shift();
-        features = [...features, feature];
+        if (features.length > 0) {
+            features = [...features.slice(1), features[0]];
+        }
     }
 
     setInterval(shift, 1800);

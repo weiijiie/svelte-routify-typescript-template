@@ -1,7 +1,7 @@
 <script lang="ts">
     import Features from "./Features.svelte";
 
-    const features: string[] = ["Typescript", "Code-Splitting", "Babel"];
+    const features: string[] = ["Typescript", "Babel", "Code-Splitting"];
 </script>
 
 <style>
