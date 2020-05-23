@@ -50,7 +50,7 @@ export default (async () => ({
 
         // If we're building for production (npm run build
         // instead of npm run dev), minify
-        production && (await import('rollup-plugin-terser').terser(),
+        production && (await import("rollup-plugin-terser")).terser(),
     ],
     watch: {
         clearScreen: false,
