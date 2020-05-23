@@ -1,9 +1,7 @@
 <script lang="ts">
-    const svelte: string = "Svelte";
-    const typescript: string = "Typescript";
+    import Features from "./Features.svelte";
 
-    const plus = (first: string, second: string): string =>
-        `${first} plus ${second}!`;
+    const features: string[] = ["Typescript", "Code-Splitting", "Babel"];
 </script>
 
 <style>
@@ -12,6 +10,13 @@
         padding: 1em;
         max-width: 240px;
         margin: 0 auto;
+    }
+
+    main :global(li) {
+        color: #ff3e00;
+        text-transform: uppercase;
+        font-size: 3em;
+        font-weight: 100;
     }
 
     h1 {
@@ -29,5 +34,6 @@
 </style>
 
 <main>
-    <h1>{plus(svelte, typescript)}</h1>
+    <h1>{'Svelte with...'}</h1>
+    <Features {features} />
 </main>
