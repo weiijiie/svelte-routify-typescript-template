@@ -1,8 +1,9 @@
 import svelte from "rollup-plugin-svelte";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
+import babel from "rollup-plugin-babel";
 import livereload from "rollup-plugin-livereload";
-import { autoPreprocess } from "svelte-preprocess/dist/autoProcess";
+import autoPreprocess from "svelte-preprocess";
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -39,6 +40,11 @@ export default (async () => ({
             dedupe: ["svelte"],
         }),
         commonjs(),
+
+        babel({
+            babelHelpers: "bundled",
+            exclude: "node_modules/**",
+        }),
 
         // In dev mode, call `npm run start` once
         // the bundle has been generated

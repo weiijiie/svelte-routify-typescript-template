@@ -2,9 +2,8 @@
     const svelte: string = "Svelte";
     const typescript: string = "Typescript";
 
-    function plus(first: string, second: string): string {
-        return `${first} plus ${second}!`;
-    }
+    const plus: string = (first: string, second: string) =>
+        `${first} plus ${second}!`;
 </script>
 
 <style>
