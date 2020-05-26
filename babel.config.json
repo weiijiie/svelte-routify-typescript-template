@@ -1,0 +1,37 @@
+{
+    "env": {
+        "module": {
+            "presets": ["@babel/preset-modules"],
+            "plugins": [
+                [
+                    "@babel/plugin-transform-runtime",
+                    {
+                        "useESModules": true
+                    }
+                ]
+            ]
+        },
+        "nomodule": {
+            "presets": [
+                [
+                    "@babel/preset-env",
+                    {
+                        "targets": "ie 11, > 0.25%, not dead",
+                        "useBuiltIns": "usage",
+                        "corejs": 3,
+                        "modules": false
+                    }
+                ]
+            ],
+            "plugins": [
+                "@babel/plugin-syntax-dynamic-import",
+                [
+                    "@babel/plugin-transform-runtime",
+                    {
+                        "useESModules": true
+                    }
+                ]
+            ]
+        }
+    }
+}
