@@ -3,8 +3,8 @@ import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import babel from "@rollup/plugin-babel";
 import livereload from "rollup-plugin-livereload";
-import svelteOptions from "./svelte.config";
 import babelOptions from "./babel.config.json";
+const svelteOptions = require("./svelte.config.js");
 
 const production = !process.env.ROLLUP_WATCH;
 

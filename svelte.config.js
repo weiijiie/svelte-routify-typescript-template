@@ -1,6 +1,6 @@
-import sveltePreprocess from "svelte-preprocess";
+const sveltePreprocess = require("svelte-preprocess");
 
-export default {
+module.exports = {
     // enable run-time checks when not in production
     dev: !process.env.ROLLUP_WATCH,
     // we'll extract any component CSS out into

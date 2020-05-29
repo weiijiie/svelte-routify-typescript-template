@@ -1,10 +1,18 @@
 <script lang="ts">
     import Features from "./Features.svelte";
 
-    const features: string[] = ["Typescript", "Babel", "Code-Splitting"];
+    const features: string[] = [
+        "Typescript",
+        "Sass",
+        "Babel",
+        "Tree-Shaking",
+        "Code-Splitting"
+    ];
 </script>
 
-<style>
+<style lang="scss">
+    $base-color: #ff3e00;
+
     main {
         text-align: center;
         padding: 1em;
@@ -13,14 +21,14 @@
     }
 
     main :global(li) {
-        color: #ff3e00;
+        color: $base-color;
         text-transform: uppercase;
         font-size: 3em;
         font-weight: 100;
     }
 
     h1 {
-        color: #ff3e00;
+        color: $base-color;
         text-transform: uppercase;
         font-size: 4em;
         font-weight: 100;
