@@ -3,82 +3,28 @@ import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import babel from "@rollup/plugin-babel";
 import livereload from "rollup-plugin-livereload";
-import babelOptions from "./babel.config.json";
+import { terser } from "rollup-plugin-terser";
 const svelteOptions = require("./svelte.config.js");
 
 const production = !process.env.ROLLUP_WATCH;
+const legacy = !!process.env.LEGACY_BUILD;
 
-const configs = [moduleConfig()];
-if (production) {
-    configs.push(nomoduleConfig());
-}
+const output = legacy
+    ? {
+          sourcemap: true,
+          format: "system",
+          dir: "public/build/legacy"
+      }
+    : {
+          sourcemap: true,
+          format: "esm",
+          dir: "public/build"
+      };
 
-export default Promise.all(configs);
-
-async function moduleConfig() {
-    return {
-        input: "src/main.js",
-        output: {
-            sourcemap: true,
-            format: "esm",
-            dir: "public/build/module"
-        },
-        plugins: [
-            ...basePlugins(),
-            // Call `npm run start` once bundle has been generated
-            !production && serve(),
-
-            // Watch the `public` directory and refresh the browser upon changes
-            !production && livereload("public"),
-
-            // If we're building for production (`npm run build`
-            // instead of `npm run dev`), minify
-            production &&
-                (await import("rollup-plugin-terser")).terser({
-                    ecma: 8,
-                    safari10: true
-                })
-        ],
-        watch: {
-            clearScreen: false
-        },
-        preserveEntrySignatures: false
-    };
-}
-
-async function nomoduleConfig() {
-    const config = {
-        input: "src/main.js",
-        output: {
-            sourcemap: true,
-            format: "system",
-            dir: "public/build/nomodule"
-        },
-        plugins: [
-            ...basePlugins({ nomodule: true }),
-            // Call `npm run start` once bundle has been generated
-            !production && serve(),
-
-            // Watch the `public` directory and refresh the browser upon changes
-            !production && livereload("public"),
-
-            // If we're building for production (`npm run build`
-            // instead of `npm run dev`), minify
-            production && (await import("rollup-plugin-terser")).terser()
-        ],
-        watch: {
-            clearScreen: false
-        }
-    };
-    return config;
-}
-
-function basePlugins({ nomodule = false } = {}) {
-    const babelOpts = nomodule
-        ? babelOptions.env.nomodule
-        : babelOptions.env.module;
-
-    return [
+export default {
+    input: "src/main.js",
+    output,
+    plugins: [
         svelte(svelteOptions),
         resolve({
             browser: true,
@@ -86,14 +32,28 @@ function basePlugins({ nomodule = false } = {}) {
                 importee === "svelte" || importee.startsWith("svelte/")
         }),
         commonjs(),
-        babel({
-            babelHelpers: "runtime",
-            extensions: [".js", ".mjs", ".html", ".svelte"],
-            exclude: ["node_modules/@babel/**", "node_modules/core-js/**"],
-            ...babelOpts
-        })
-    ];
-}
+        legacy &&
+            babel({
+                babelHelpers: "runtime",
+                extensions: [".js", ".mjs", ".html", ".svelte"],
+                exclude: ["node_modules/@babel/**", "node_modules/core-js/**"]
+            }),
+
+        // Call `npm run start` once bundle has been generated
+        !production && serve(),
+
+        // Watch the `public` directory and refresh the browser upon changes
+        !production && livereload("public"),
+
+        // If we're building for production (`npm run build`
+        // instead of `npm run dev`), minify
+        production && terser()
+    ],
+    watch: {
+        clearScreen: false
+    },
+    preserveEntrySignatures: false
+};
 
 function serve() {
     let started = false;

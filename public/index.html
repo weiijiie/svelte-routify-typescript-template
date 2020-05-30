@@ -16,7 +16,7 @@
     </head>
 
     <body>
-        <script type="module" src="./build/module/main.js"></script>
+        <script type="module" src="./build/main.js"></script>
         <script
             nomodule
             src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"
@@ -26,7 +26,7 @@
             systemJsLoaderTag.src =
                 "https://unpkg.com/systemjs@6.3.0/dist/s.js";
             systemJsLoaderTag.addEventListener("load", function () {
-                System.import("./build/nomodule/main.js");
+                System.import("./build/legacy/main.js");
             });
             document.head.appendChild(systemJsLoaderTag);
         </script>
