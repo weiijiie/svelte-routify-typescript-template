@@ -8,6 +8,13 @@ const svelteOptions = require("./svelte.config.js");
 
 const production = !process.env.ROLLUP_WATCH;
 
+const configs = [moduleConfig()];
+if (production) {
+    configs.push(nomoduleConfig());
+}
+
+export default Promise.all(configs);
+
 async function moduleConfig() {
     return {
         input: "src/main.js",
@@ -34,7 +41,8 @@ async function moduleConfig() {
         ],
         watch: {
             clearScreen: false
-        }
+        },
+        preserveEntrySignatures: false
     };
 }
 
@@ -64,13 +72,6 @@ async function nomoduleConfig() {
     };
     return config;
 }
-
-const configs = [moduleConfig()];
-if (production) {
-    configs.push(nomoduleConfig());
-}
-
-export default Promise.all(configs);
 
 function basePlugins({ nomodule = false } = {}) {
     const babelOpts = nomodule

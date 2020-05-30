@@ -3,7 +3,7 @@
 
     const features: string[] = [
         "Typescript",
-        "Sass",
+        "SASS/SCSS",
         "Babel",
         "Tree-Shaking",
         "Code-Splitting"
