@@ -11,15 +11,15 @@ const legacy = !!process.env.LEGACY_BUILD;
 
 const output = legacy
     ? {
-          sourcemap: true,
-          format: "system",
-          dir: "public/build/legacy"
-      }
+        sourcemap: true,
+        format: "system",
+        dir: "public/build/legacy"
+    }
     : {
-          sourcemap: true,
-          format: "esm",
-          dir: "public/build"
-      };
+        sourcemap: true,
+        format: "esm",
+        dir: "public/build"
+    };
 
 export default {
     input: "src/main.js",
@@ -33,11 +33,11 @@ export default {
         }),
         commonjs(),
         legacy &&
-            babel({
-                babelHelpers: "runtime",
-                extensions: [".js", ".mjs", ".html", ".svelte"],
-                exclude: ["node_modules/@babel/**", "node_modules/core-js/**"]
-            }),
+        babel({
+            babelHelpers: "runtime",
+            extensions: [".js", ".mjs", ".html", ".svelte"],
+            exclude: ["node_modules/@babel/**", "node_modules/core-js/**"]
+        }),
 
         // Call `npm run start` once bundle has been generated
         !production && serve(),
