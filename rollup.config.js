@@ -5,7 +5,7 @@ import babel from "@rollup/plugin-babel";
 import copy from "rollup-plugin-copy";
 import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
-import { generateSW } from 'workbox-build';
+import { workboxGenerateSW } from "./plugins/rollup-plugin-workbox"
 const svelteOptions = require("./svelte.config.js");
 
 const production = !process.env.ROLLUP_WATCH;
@@ -65,19 +65,6 @@ export default {
     },
     preserveEntrySignatures: false
 };
-
-function workboxGenerateSW(options) {
-    return {
-        name: "workbox",
-        writeBundle(outputOptions, bundle) {
-            generateSW({
-                ...options,
-            }).then(({ count, size }) => {
-                console.log(`Service worker generated at: ${options.swDest}. ${count} files totaling ${size} bytes will be precached.`);
-            });
-        }
-    }
-}
 
 function serve() {
     let started = false;
