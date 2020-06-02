@@ -2,7 +2,7 @@
 /node_modules/
 
 # Build directories
-/public/build/
+/dist
 
 # Optional npm cache directory
 .npm
