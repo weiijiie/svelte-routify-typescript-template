@@ -42,7 +42,7 @@ export default {
             extensions: [".js", ".mjs", ".html", ".svelte"],
             exclude: ["node_modules/@babel/**", "node_modules/core-js/**"]
         }),
-        !legacy && workboxGenerateSW({
+        !legacy && production && workboxGenerateSW({
             swDest: "dist/service-worker.js",
             globDirectory: "dist",
             globPatterns: ["**/*.{html,css,js,json,png,jpg,jpeg,svg}"],
@@ -54,7 +54,7 @@ export default {
         !production && serve(),
 
         // Watch the `public` directory and refresh the browser upon changes
-        !production && livereload("public"),
+        !production && livereload("dist"),
 
         // If we're building for production (`npm run build`
         // instead of `npm run dev`), minify
