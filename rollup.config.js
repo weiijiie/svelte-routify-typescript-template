@@ -3,6 +3,8 @@ import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import babel from "@rollup/plugin-babel";
 import copy from "rollup-plugin-copy";
+import del from "rollup-plugin-delete";
+import replace from '@rollup/plugin-replace';
 import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
 import { workboxGenerateSW } from "./plugins/rollup-plugin-workbox"
@@ -27,10 +29,17 @@ export default {
     input: "src/main.js",
     output,
     plugins: [
+        del({
+            targets: ["dist/*"],
+            runOnce: true
+        }),
         copy({
-            targets: [{ src: 'public/**/*', dest: 'dist' }]
+            targets: [{ src: "public/**/*", dest: "dist" }]
         }),
         svelte(svelteOptions),
+        replace({
+            __PRODUCTION: production
+        }),
         resolve({
             browser: true,
             dedupe: (importee) =>

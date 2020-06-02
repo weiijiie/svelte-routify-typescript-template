@@ -1,6 +1,12 @@
 <script lang="ts">
     import Features from "./Features.svelte";
 
+    declare var __PRODUCTION: boolean;
+
+    if (!__PRODUCTION) {
+        console.log("Running in development");
+    }
+
     const features: string[] = [
         "Typescript",
         "SASS/SCSS",
