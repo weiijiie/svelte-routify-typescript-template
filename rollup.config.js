@@ -10,35 +10,31 @@ import { terser } from "rollup-plugin-terser";
 import { workboxGenerateSW } from "./plugins/rollup-plugin-workbox"
 const svelteOptions = require("./svelte.config.js");
 
+
 const production = !process.env.ROLLUP_WATCH;
 const legacy = !!process.env.LEGACY_BUILD;
 
-const output = legacy
-    ? {
-        sourcemap: true,
-        format: "system",
-        dir: "dist/legacy"
-    }
-    : {
-        sourcemap: true,
-        format: "esm",
-        dir: "dist"
-    };
+const distDir = "dist";
+const buildDir = `${distDir}/${legacy ? "legacy" : "build"}`
 
 export default {
     input: "src/main.js",
-    output,
+    output: {
+        sourcemap: true,
+        format: legacy ? "system" : "esm",
+        dir: buildDir
+    },
     plugins: [
-        del({
-            targets: ["dist/*"],
+        !legacy && del({
+            targets: [`${distDir}/*`],
             runOnce: true
         }),
         copy({
-            targets: [{ src: "public/**/*", dest: "dist" }]
+            targets: [{ src: "public/**/*", dest: distDir }]
         }),
         svelte(svelteOptions),
         replace({
-            __PRODUCTION: production
+            __production: production
         }),
         resolve({
             browser: true,
@@ -52,8 +48,8 @@ export default {
             exclude: ["node_modules/@babel/**", "node_modules/core-js/**"]
         }),
         !legacy && production && workboxGenerateSW({
-            swDest: "dist/service-worker.js",
-            globDirectory: "dist",
+            swDest: `${distDir}/service-worker.js`,
+            globDirectory: distDir,
             globPatterns: ["**/*.{html,css,js,json,png,jpg,jpeg,svg}"],
             globIgnores: ["**/legacy/*"],
             skipWaiting: true,
@@ -63,7 +59,7 @@ export default {
         !production && serve(),
 
         // Watch the `public` directory and refresh the browser upon changes
-        !production && livereload("dist"),
+        !production && livereload(distDir),
 
         // If we're building for production (`npm run build`
         // instead of `npm run dev`), minify

@@ -1,9 +1,9 @@
 <script lang="ts">
     import Features from "./Features.svelte";
 
-    declare var __PRODUCTION: boolean;
+    declare let __production: boolean;
 
-    if (!__PRODUCTION) {
+    if (!__production) {
         console.log("Running in development");
     }
 

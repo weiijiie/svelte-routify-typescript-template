@@ -13,24 +13,10 @@
     <link rel="stylesheet" href="/global.css" />
     <link rel="stylesheet" href="/bundle.css" />
     <link rel="manifest" href="/manifest.json">
-
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function () {
-                navigator.serviceWorker.register('/service-worker.js')
-                    .then(function (registration) {
-                        console.log('Service worker registered! 😎 Scope: ' + registration.scope);
-                    })
-                    .catch(function (err) {
-                        console.log('Service worker registration failed! 😫', err.stack);
-                    })
-            });
-        }
-    </script>
 </head>
 
 <body>
-    <script type="module" src="./main.js"></script>
+    <script type="module" src="./build/main.js"></script>
     <script nomodule src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
     <script nomodule defer>
         var systemJsLoaderTag = document.createElement("script");
