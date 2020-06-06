@@ -9,7 +9,7 @@ module.exports = {
     // we'll extract any component CSS out into
     // a separate file - better for performance
     css: (css) => {
-        css.write(legacy ? "dist/legacy/bundle.css" : "dist/bundle.css");
+        css.write(legacy ? "dist/legacy/bundle.css" : "dist/build/bundle.css");
     },
     preprocess: sveltePreprocess({
         // Can use <... lang="ts"> in place of <... lang="typescript">

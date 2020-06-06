@@ -1,4 +1,5 @@
 import svelte from "rollup-plugin-svelte";
+import { routify } from "@sveltech/routify"
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import babel from "@rollup/plugin-babel";
@@ -31,6 +32,11 @@ export default {
         }),
         copy({
             targets: [{ src: "public/**/*", dest: distDir }]
+        }),
+        routify({
+            debug: true,
+            singleBuild: production,
+            dynamicImports: true
         }),
         svelte(svelteOptions),
         replace({
