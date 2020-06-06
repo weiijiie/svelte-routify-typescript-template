@@ -1,6 +1,6 @@
 <script lang="ts">
     import { url, isActive } from "@sveltech/routify";
-    export let links: {}[];
+    export let links: { [index: string]: string }[];
 </script>
 
 <style lang="scss">
