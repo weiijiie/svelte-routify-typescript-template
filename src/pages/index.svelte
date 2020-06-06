@@ -12,17 +12,19 @@
         "SASS/SCSS",
         "Babel",
         "Tree-Shaking",
-        "Code-Splitting"
+        "Code-Splitting",
+        "PWA",
+        "Routing"
     ];
 </script>
 
 <style lang="scss">
     $base-color: #ff3e00;
 
-    main {
+    div {
         text-align: center;
         padding: 1em;
-        max-width: 240px;
+        max-width: 500px;
         margin: 0 auto;
     }
 
@@ -40,7 +42,7 @@
     }
 </style>
 
-<main>
+<div>
     <h1>{'Svelte with...'}</h1>
-</main>
+</div>
 <Features {features} />

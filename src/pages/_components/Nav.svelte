@@ -4,7 +4,7 @@
 </script>
 
 <style lang="scss">
-    $lighter: lighter(#ff3e00);
+    $base: #ff3e00;
 
     nav {
         display: flex;

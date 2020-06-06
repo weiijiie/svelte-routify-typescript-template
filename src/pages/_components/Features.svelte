@@ -1,5 +1,7 @@
 <script lang="ts">
     import { fly } from "svelte/transition";
+    import { beforeUrlChange } from "@sveltech/routify";
+
     export let features: string[];
 
     function shift() {
@@ -8,11 +10,16 @@
         }
     }
 
-    setInterval(shift, 1800);
+    let interval: number = setInterval(shift, 1800);
+
+    $beforeUrlChange(() => {
+        clearInterval(interval);
+        return true;
+    });
 </script>
 
 <style>
-    aside {
+    section {
         display: flex;
         align-items: stretch;
         justify-content: center;
@@ -25,6 +32,7 @@
     }
 
     li {
+        position: relative;
         color: #ff3e00;
         text-transform: uppercase;
         font-size: 3em;
@@ -32,7 +40,7 @@
     }
 </style>
 
-<aside>
+<section>
     <ol>
         {#each features as feature, i (feature)}
             {#if i === 0}
@@ -44,4 +52,4 @@
             {/if}
         {/each}
     </ol>
-</aside>
+</section>

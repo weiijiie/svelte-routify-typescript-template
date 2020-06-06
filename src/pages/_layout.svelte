@@ -1,8 +1,9 @@
 <script>
     import Nav from "./_components/Nav.svelte";
+    import FadeTransition from "./_transitions/FadeTransition.svelte";
 
     const links = [
-        { name: "Home", path: "./index" },
+        { name: "Home", path: "/index" },
         { name: "About", path: "./about" }
     ];
 </script>
@@ -13,7 +14,7 @@
         left: 0;
         right: 0;
     }
-    .main {
+    main {
         height: calc(100% - 100px);
         padding-top: 100px;
     }
@@ -22,6 +23,6 @@
 <div class="nav">
     <Nav {links} />
 </div>
-<div class="main">
-    <slot />
-</div>
+<main>
+    <slot decorator={FadeTransition} />
+</main>
