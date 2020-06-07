@@ -1,4 +1,6 @@
-function registerSW() {
+declare let __production: boolean;
+
+function registerSW(): void {
     if (__production && 'serviceWorker' in navigator) {
         window.addEventListener('load', function () {
             navigator.serviceWorker.register('/service-worker.js')
@@ -12,11 +14,11 @@ function registerSW() {
     }
 }
 
-let deferredPrompt;
+let deferredPrompt: BeforeInstallPromptEvent;
 
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
-    deferredPrompt = e;
+    deferredPrompt = e as BeforeInstallPromptEvent;
 });
 
 // TODO: Import deferredPrompt

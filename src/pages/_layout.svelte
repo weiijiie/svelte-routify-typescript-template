@@ -1,8 +1,9 @@
-<script>
+<script lang="ts">
+    import { Page } from "../classLibrary/Page";
     import Nav from "./_components/Nav.svelte";
     import FadeTransition from "./_transitions/FadeTransition.svelte";
 
-    const links = [
+    const links: Page[] = [
         { name: "Home", path: "/index" },
         { name: "About", path: "./about" }
     ];

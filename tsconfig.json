@@ -1,12 +1,18 @@
 {
-    "include": ["src/**/*"],
-    "exclude": ["node_modules/*"],
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules/*"
+    ],
     "compilerOptions": {
         "target": "es6",
         "module": "es6",
         "strict": true,
         "moduleResolution": "node",
-        "types": ["svelte"],
+        "types": [
+            "svelte"
+        ],
         "esModuleInterop": true
     }
 }

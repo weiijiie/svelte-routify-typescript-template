@@ -1,6 +1,8 @@
 <script lang="ts">
+    import { Page } from "../../classLibrary/Page";
     import { url, isActive } from "@sveltech/routify";
-    export let links: { [index: string]: string }[];
+
+    export let links: Page[];
 </script>
 
 <style lang="scss">

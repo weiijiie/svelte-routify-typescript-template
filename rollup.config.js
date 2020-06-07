@@ -2,6 +2,7 @@ import svelte from "rollup-plugin-svelte";
 import { routify } from "@sveltech/routify"
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
+import typescript from '@rollup/plugin-typescript';
 import babel from "@rollup/plugin-babel";
 import copy from "rollup-plugin-copy";
 import del from "rollup-plugin-delete";
@@ -19,7 +20,7 @@ const distDir = "dist";
 const buildDir = `${distDir}/${legacy ? "legacy" : "build"}`
 
 export default {
-    input: "src/main.js",
+    input: "src/main.ts",
     output: {
         sourcemap: true,
         format: legacy ? "system" : "esm",
@@ -34,7 +35,6 @@ export default {
             targets: [{ src: "public/**/*", dest: distDir }]
         }),
         routify({
-            debug: true,
             singleBuild: production,
             dynamicImports: true
         }),
@@ -48,6 +48,7 @@ export default {
                 importee === "svelte" || importee.startsWith("svelte/")
         }),
         commonjs(),
+        typescript(),
         legacy && babel({
             babelHelpers: "runtime",
             extensions: [".js", ".mjs", ".html", ".svelte"],
