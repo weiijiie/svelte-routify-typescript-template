@@ -77,8 +77,20 @@ export default {
     watch: {
         clearScreen: false
     },
-    preserveEntrySignatures: false
+    preserveEntrySignatures: false,
+    manualChunks
 };
+
+function manualChunks(id) {
+    if (id.includes("node_modules")) {
+        const directories = id.split(path.sep);
+        const name = directories[directories.lastIndexOf('node_modules') + 1];
+
+        if (name === "svelte" || name === "@sveltech") return;
+
+        return "vendor";
+    }
+}
 
 function serve() {
     let started = false;
