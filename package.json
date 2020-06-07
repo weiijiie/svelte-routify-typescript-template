@@ -2,8 +2,8 @@
 	"name": "svelte-app",
 	"version": "1.0.0",
 	"scripts": {
-		"build": "rollup -c && rollup -c --environment LEGACY_BUILD",
-		"dev": "rollup -c -w",
+		"build": "rollup -c ./config/rollup.config.js && rollup -c ./config/rollup.config.js --environment LEGACY_BUILD",
+		"dev": "rollup -c ./config/rollup.config.js  -w",
 		"start": "sirv dist --single"
 	},
 	"devDependencies": {

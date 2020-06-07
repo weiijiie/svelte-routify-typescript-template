@@ -1,3 +1,4 @@
+const path = require("path");
 const sveltePreprocess = require("svelte-preprocess");
 
 const production = !process.env.ROLLUP_WATCH;
@@ -14,6 +15,8 @@ module.exports = {
     preprocess: sveltePreprocess({
         // Can use <... lang="ts"> in place of <... lang="typescript">
         aliases: [["ts", "typescript"]],
-        postcss: true
+        postcss: {
+            configFilePath: path.resolve(__dirname, "config/postcss.config.js")
+        }
     })
 };

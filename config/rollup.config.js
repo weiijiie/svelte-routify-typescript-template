@@ -1,3 +1,4 @@
+import path from "path";
 import svelte from "rollup-plugin-svelte";
 import { routify } from "@sveltech/routify"
 import resolve from "@rollup/plugin-node-resolve";
@@ -10,7 +11,7 @@ import replace from '@rollup/plugin-replace';
 import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
 import { workboxGenerateSW } from "./plugins/rollup-plugin-workbox"
-const svelteOptions = require("./svelte.config.js");
+const svelteOptions = require("../svelte.config.js");
 
 
 const production = !process.env.ROLLUP_WATCH;
@@ -50,6 +51,7 @@ export default {
         commonjs(),
         typescript(),
         legacy && babel({
+            configFile: path.resolve(__dirname, "babel.config.json"),
             babelHelpers: "runtime",
             extensions: [".js", ".mjs", ".ts", ".html", ".svelte"],
             exclude: ["node_modules/@babel/**", "node_modules/core-js/**"]
