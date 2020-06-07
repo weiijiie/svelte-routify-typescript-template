@@ -4,7 +4,7 @@ Svelte template with various useful features:
 
 - Typescript and SASS/SCSS integration via [svelte-preprocess](https://github.com/sveltejs/svelte-preprocess)
 
-- Babel support (compatible with IE10)
+- Babel support (compatible with IE11)
 
 - File based routing using [Routify](https://routify.dev/)
 

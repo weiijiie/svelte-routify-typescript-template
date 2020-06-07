@@ -51,7 +51,7 @@ export default {
         typescript(),
         legacy && babel({
             babelHelpers: "runtime",
-            extensions: [".js", ".mjs", ".html", ".svelte"],
+            extensions: [".js", ".mjs", ".ts", ".html", ".svelte"],
             exclude: ["node_modules/@babel/**", "node_modules/core-js/**"]
         }),
         !legacy && production && workboxGenerateSW({
