@@ -10,7 +10,7 @@ import del from "rollup-plugin-delete";
 import replace from '@rollup/plugin-replace';
 import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
-import { workboxGenerateSW } from "./plugins/rollup-plugin-workbox"
+import { workboxGenerateSW } from "./plugins/workboxPlugin"
 const svelteOptions = require("../svelte.config.js");
 
 
@@ -19,6 +19,13 @@ const legacy = !!process.env.LEGACY_BUILD;
 
 const distDir = "dist";
 const buildDir = `${distDir}/${legacy ? "legacy" : "build"}`
+
+
+const preloadFiles = [];
+
+function generateSWCallback({ filePaths, count, size }) {
+    console.log(`Service worker generated. ${count} files with total size ${size} bytes will be precached.`);
+}
 
 export default {
     input: "src/main.ts",
@@ -33,7 +40,8 @@ export default {
             runOnce: true
         }),
         copy({
-            targets: [{ src: "public/**/*", dest: distDir }]
+            targets: [{ src: ["public/**/*", "!public/index.html"], dest: distDir }],
+            copyOnce: true
         }),
         routify({
             singleBuild: production,
@@ -64,10 +72,14 @@ export default {
             skipWaiting: true,
             clientsClaim: true
         }),
+        copy({
+            targets: [{ src: "public/index.html", dest: distDir }],
+            copyOnce: true
+        }),
         // Call `npm run start` once bundle has been generated
         !production && serve(),
 
-        // Watch the `public` directory and refresh the browser upon changes
+        // Watch the dist directory and refresh the browser upon changes
         !production && livereload(distDir),
 
         // If we're building for production (`npm run build`
